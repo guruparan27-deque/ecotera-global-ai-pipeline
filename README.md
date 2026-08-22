@@ -1,71 +1,75 @@
 # Ecotera Global AI Pipeline
 
-## Global Data Harmonization & AI-Ready Environmental Intelligence
+## Global Data Harmonization & AI-Ready Water Quality Pipeline
 
-This project develops a reproducible data pipeline for ingesting, cleaning, harmonizing, validating, and preparing global water-quality and environmental datasets for future AI/ML applications.
+## Overview
 
-The project is being developed for Ecotera Asia as a foundational data layer for future environmental intelligence applications.
+This project develops a data pipeline for collecting, cleaning, harmonizing, and preparing water-quality data from major public sources.
 
----
+The goal is to create a standardized dataset that can support future environmental intelligence, dashboards, APIs, and AI/ML applications.
 
-## Project Goal
+## Project Goals
 
-The goal is to transform heterogeneous global water and environmental datasets into standardized, quality-controlled, machine-readable datasets.
+The pipeline focuses on:
 
-The pipeline is designed to support future:
+- Automated data ingestion
+- Data cleaning and standardization
+- Harmonization of different data formats and schemas
+- Basic data-quality validation
+- Creation of a common environmental data schema
+- Preparation of a master water-quality dataset
+- Documentation and reproducibility
 
-- Environmental dashboards
-- Geospatial visualization
-- REST APIs
-- AI/ML models
-- Anomaly detection
-- Semantic search
-- Environmental intelligence applications
-- EcoExposure™ integration
+## Data Sources
 
----
+### 1. SDG 6 Data Portal
 
-## Initial Data Sources
+Source:
 
-The initial prototype focuses on three public data sources:
+https://www.sdg6data.org/
 
-1. **GEMStat** — UNEP Global Freshwater Quality Database
-2. **Water Quality Portal** — USGS, EPA and partner organizations
-3. **UN SDG 6 Data Portal** — United Nations water and sanitation indicators
+Dataset used:
 
-Future sources may include:
+SDG indicator `6.1.1` — drinking-water data.
 
-- FAO AQUASTAT
-- World Bank water datasets
-- Asian Development Bank datasets
-- National water-quality portals
-- Weather and rainfall datasets
-- Hydrology datasets
-- Land-use datasets
-- Satellite-derived environmental data
+### 2. Water Quality Portal
 
----
+Source:
 
-## Proposed Architecture
+https://www.waterqualitydata.us/
 
-The pipeline follows a modular architecture:
+Dataset used:
 
-External Data Sources
-        ↓
-Ingestion Layer
-        ↓
-Raw Data Storage
-        ↓
-Cleaning & Processing
-        ↓
-Schema & Unit Standardization
-        ↓
-Validation & Quality Control
-        ↓
-Harmonized Dataset
-        ↓
-Database / Storage
-        ↓
-API / Dashboard
-        ↓
-AI / ML Applications
+Dissolved oxygen measurements retrieved from the Water Quality Portal.
+
+### 3. GEMStat
+
+Source:
+
+https://gemstat.org/
+
+Dataset used:
+
+Arsenic measurements from the GEMStat GFQA v3 archive.
+
+## Pipeline Architecture
+
+```text
+SDG 6 ───────┐
+             │
+WQP ─────────┼──→ Ingestion
+             │        ↓
+GEMStat ─────┘     Raw Data
+                     ↓
+                  Cleaning
+                     ↓
+                Quality Checks
+                     ↓
+                Harmonization
+                     ↓
+              Master Dataset
+                     ↓
+              Database / CSV
+                 ↙       ↘
+          Dashboard      AI/ML
+           (Future)     (Future)

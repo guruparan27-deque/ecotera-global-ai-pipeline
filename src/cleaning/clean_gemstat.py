@@ -40,6 +40,7 @@ df["value"] = pd.to_numeric(df["value"], errors="coerce")
 
 # Remove missing values
 df = df.dropna(subset=["value"])
+df = df[df["quality"] != "Pending review"]
 
 # Remove duplicate rows
 df = df.drop_duplicates()

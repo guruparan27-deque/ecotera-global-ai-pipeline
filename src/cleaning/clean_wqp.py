@@ -36,6 +36,8 @@ df = df.rename(columns={
 df["value"] = pd.to_numeric(df["value"], errors="coerce")
 
 df = df.dropna(subset=["value"])
+# STEWARDS uses -99.9 to represent a null value
+df = df[df["value"] != -99.9]
 df = df.drop_duplicates()
 
 df.to_csv(OUTPUT_FILE, index=False)

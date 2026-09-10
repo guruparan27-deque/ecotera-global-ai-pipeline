@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ecotera | Southeast Asia Water Data</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f8f7;
+            color: #1d2925;
+        }
+
+        header {
+            background: #123c35;
+            color: white;
+            padding: 45px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: 38px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .intro {
+            font-size: 17px;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        .number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        main {
+            padding: 35px 0;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        .chart-row {
+            margin: 14px 0;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            gap: 20px;
+        }
+
+        .bar-background {
+            width: 100%;
+            height: 22px;
+            background: #e3ebe8;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            background: #2d8b78;
+            border-radius: 12px;
+        }
+
+        .notice {
+            background: #fff7df;
+            border-left: 5px solid #d49a00;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .info {
+            background: #eef7f4;
+            border-left: 5px solid #176b5d;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.6;
+            margin-top: 18px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 18px;
+            background: #176b5d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dfe8e4;
+        }
+
+        th {
+            background: #eef4f1;
+        }
+
+        footer {
+            background: #123c35;
+            color: white;
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+
+        small {
+            color: #63736e;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <h1>Southeast Asia Water Data</h1>
+
+        <p class="intro">
+            A public-data demonstration for Singapore and surrounding Southeast Asian countries.
+            This page uses public water and sanitation data and does not contain EcoExposure
+            sample submissions.
+        </p>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+
+        <section>
+            <div class="stats">
+
+                <div class="card">
+                    <small>In-scope records shown</small>
+                    <div class="number" id="totalRecords">Loading...</div>
+                </div>
+
+                <div class="card">
+                    <small>Countries</small>
+                    <div class="number">10</div>
+                </div>
+
+                <div class="card">
+                    <small>Current indicator</small>
+                    <div class="number">SDG 6.1.1</div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Records by Country</h2>
+            <div id="countryChart"></div>
+        </section>
+
+        <section class="card">
+            <h2>Records by Parameter</h2>
+            <div id="parameterChart"></div>
+        </section>
+
+        <section class="card">
+            <h2>Records by Year</h2>
+            <div id="yearChart"></div>
+        </section>
+
+        <section class="card">
+            <h2>Source Coverage</h2>
+
+            <p>
+                The live page is intentionally limited to Southeast Asia.
+                Global and US-heavy source records are not loaded into the browser.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Records Reviewed</th>
+                            <th>In Scope</th>
+                            <th>Out of Scope</th>
+                            <th>Missing Geography</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="coverageTable">
+                        <tr>
+                            <td colspan="5">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info">
+                <strong>Coverage note:</strong>
+                WQP is US-based in the downloaded sample, so it is excluded from
+                the Southeast Asia live page. GEMStat currently has no verified
+                stations for the 10 target countries in the selected dataset.
+                Geography is never guessed from incomplete source data.
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Quality & Geography Notes</h2>
+
+            <div class="notice">
+                <strong>Geographic scope:</strong>
+                The live page is limited to Singapore, Malaysia, Indonesia,
+                Brunei Darussalam, Thailand, Viet Nam, Cambodia,
+                Lao People's Democratic Republic, Myanmar, and the Philippines.
+            </div>
+
+            <p>
+                <strong>SDG 6:</strong>
+                The current Southeast Asia subset contains verified records
+                for all 10 target countries. Only records with usable values
+                are included in the live dataset.
+            </p>
+
+            <p>
+                <strong>Water Quality Portal:</strong>
+                The downloaded WQP sample contains coordinates in the United States,
+                so these records are not shown on the Southeast Asia page.
+            </p>
+
+            <p>
+                <strong>GEMStat:</strong>
+                The current GEMStat station metadata does not contain verified
+                stations in the 10 target countries, so GEMStat records are not
+                shown on the live Southeast Asia page.
+            </p>
+
+            <p>
+                No country is assigned by guesswork. Records are included only
+                when the source provides sufficient evidence for Southeast Asian
+                inclusion.
+            </p>
+
+            <p>
+                <strong>Map:</strong>
+                No point map is shown because the current Southeast Asia live
+                subset does not contain a verified coordinate point dataset.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Full Global Dataset</h2>
+
+            <p>
+                The full harmonized master dataset remains available in the
+                GitHub repository.
+            </p>
+
+            <a
+                class="button"
+                href="../../data/harmonized/master_water_quality.csv"
+                download
+            >
+                Download Full Master CSV
+            </a>
+        </section>
+
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <small>
+            Ecotera Global AI Pipeline · Southeast Asia Public Data Demo
+        </small>
+    </div>
+</footer>
+
+<script>
+    async function loadSummary() {
+
+        const summaryResponse = await fetch(
+            "../../data/asia_subset_summary.json"
+        );
+
+        if (!summaryResponse.ok) {
+            throw new Error("Could not load summary data.");
+        }
+
+        const summary = await summaryResponse.json();
+
+        document.getElementById("totalRecords").textContent =
+            summary.total_records.toLocaleString();
+
+        createChart(
+            "countryChart",
+            summary.records_by_country
+        );
+
+        createChart(
+            "parameterChart",
+            summary.records_by_parameter
+        );
+
+        createChart(
+            "yearChart",
+            summary.records_by_year
+        );
+
+        const coverageResponse = await fetch(
+            "../../data/asia_source_coverage.json"
+        );
+
+        if (!coverageResponse.ok) {
+            throw new Error("Could not load source coverage data.");
+        }
+
+        const coverage = await coverageResponse.json();
+
+        createCoverageTable(coverage);
+    }
+
+    function createChart(elementId, values) {
+
+        const container = document.getElementById(elementId);
+
+        container.innerHTML = "";
+
+        const entries = Object.entries(values);
+
+        if (entries.length === 0) {
+            container.textContent = "No data available.";
+            return;
+        }
+
+        const maxValue = Math.max(
+            ...entries.map(entry => Number(entry[1]))
+        );
+
+        entries.forEach(([label, value]) => {
+
+            const row = document.createElement("div");
+            row.className = "chart-row";
+
+            const labelRow = document.createElement("div");
+            labelRow.className = "chart-label";
+
+            labelRow.innerHTML = `
+                <span>${label}</span>
+                <strong>${Number(value).toLocaleString()}</strong>
+            `;
+
+            const background = document.createElement("div");
+            background.className = "bar-background";
+
+            const bar = document.createElement("div");
+            bar.className = "bar";
+
+            bar.style.width =
+                `${(Number(value) / maxValue) * 100}%`;
+
+            background.appendChild(bar);
+
+            row.appendChild(labelRow);
+            row.appendChild(background);
+
+            container.appendChild(row);
+        });
+    }
+
+    function createCoverageTable(coverage) {
+
+        const table = document.getElementById("coverageTable");
+
+        table.innerHTML = "";
+
+        Object.entries(coverage).forEach(
+            ([source, info]) => {
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${source}</td>
+                    <td>${Number(
+                        info.total_records_checked
+                    ).toLocaleString()}</td>
+                    <td>${Number(
+                        info.in_scope_records
+                    ).toLocaleString()}</td>
+                    <td>${Number(
+                        info.out_of_scope_records
+                    ).toLocaleString()}</td>
+                    <td>${Number(
+                        info.missing_geography_records
+                    ).toLocaleString()}</td>
+                `;
+
+                table.appendChild(row);
+            }
+        );
+    }
+
+    loadSummary().catch(error => {
+
+        console.error(error);
+
+        document.getElementById("totalRecords").textContent =
+            "Unable to load";
+
+        document.getElementById("countryChart").textContent =
+            "Could not load summary data.";
+
+        document.getElementById("coverageTable").innerHTML = `
+            <tr>
+                <td colspan="5">
+                    Could not load source coverage data.
+                </td>
+            </tr>
+        `;
+    });
+</script>
+
+</body>
+</html>

@@ -324,7 +324,7 @@
     async function loadSummary() {
 
         const summaryResponse = await fetch(
-            "../../data/asia_subset_summary.json"
+            "asia_subset_summary.json"
         );
 
         if (!summaryResponse.ok) {
@@ -352,7 +352,7 @@
         );
 
         const coverageResponse = await fetch(
-            "../../data/asia_source_coverage.json"
+            "asia_source_coverage.json"
         );
 
         if (!coverageResponse.ok) {

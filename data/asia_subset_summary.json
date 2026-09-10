@@ -1,0 +1,56 @@
+{
+  "total_records": 4758,
+  "records_by_country": {
+    "Cambodia": 564,
+    "Indonesia": 564,
+    "Lao People's Democratic Republic": 564,
+    "Myanmar": 564,
+    "Philippines": 564,
+    "Viet Nam": 564,
+    "Thailand": 489,
+    "Malaysia": 415,
+    "Singapore": 330,
+    "Brunei Darussalam": 140
+  },
+  "records_by_parameter": {
+    "Drinking water, Basic service": 675,
+    "Drinking water, Limited": 621,
+    "Drinking water, On premises": 621,
+    "Drinking water, Unimproved": 621,
+    "Drinking water, Surface water": 591,
+    "Drinking water, Safely managed service": 525,
+    "Drinking water, Available": 483,
+    "Drinking water, Free of contamination": 483,
+    "Drinking water, At least basic service": 138
+  },
+  "records_by_year": {
+    "2000": 204,
+    "2001": 204,
+    "2002": 204,
+    "2003": 204,
+    "2004": 204,
+    "2005": 204,
+    "2006": 204,
+    "2007": 204,
+    "2008": 202,
+    "2009": 202,
+    "2010": 202,
+    "2011": 202,
+    "2012": 202,
+    "2013": 202,
+    "2014": 202,
+    "2015": 202,
+    "2016": 202,
+    "2017": 202,
+    "2018": 202,
+    "2019": 202,
+    "2020": 202,
+    "2021": 202,
+    "2022": 202,
+    "2023": 48,
+    "2024": 48
+  },
+  "records_by_source": {
+    "WHO, UNICEF": 4758
+  }
+}

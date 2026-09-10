@@ -1,0 +1,23 @@
+{
+  "SDG 6": {
+    "total_records_checked": 6318,
+    "in_scope_records": 4758,
+    "out_of_scope_records": 0,
+    "missing_geography_records": 0,
+    "missing_value_records": 1560
+  },
+  "WQP": {
+    "total_records_checked": 3036,
+    "in_scope_records": 0,
+    "out_of_scope_records": 3036,
+    "missing_geography_records": 0,
+    "note": "Downloaded WQP sample is US-based and is excluded from the Southeast Asia live page."
+  },
+  "GEMStat": {
+    "total_records_checked": 473869,
+    "in_scope_records": 0,
+    "out_of_scope_records": 473869,
+    "missing_geography_records": 0,
+    "note": "No verified stations for the 10 target countries were found in the GEMStat Arsenic dataset."
+  }
+}
